@@ -1,7 +1,7 @@
 require("dotenv").config();
 const axios = require("axios");
 
-const WEATHERAPI = process.env.GATSBY_WEATHERAPIT_KEY;
+const WEATHERAPI = process.env.GATSBY_WEATHERAPI_KEY;
 
 exports.handler = function (event, context, callback) {
   const lat = event.queryStringParameters.lat;
