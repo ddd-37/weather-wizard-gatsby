@@ -2,6 +2,7 @@ import PropTypes from "prop-types";
 import React from "react";
 
 import Header from "./header";
+import LinkOffSite from "./UI/LinkOffSite";
 
 function Layout({ children }) {
   return (
@@ -16,25 +17,13 @@ function Layout({ children }) {
         <nav className="flex justify-between max-w-4xl p-4 mx-auto text-sm md:p-8">
           <p className="text-white">
             Created by{` `}
-            <a
-              className="font-bold no-underline"
-              href="https://bryant.io"
-              target="_blank"
-              rel="noopener noreferrer"
-            >
-              Taylor Bryant
-            </a>
+            <LinkOffSite url="https://devon-deason.netlify.app/">
+              Devon Deason
+            </LinkOffSite>
           </p>
 
-          <p>
-            <a
-              className="font-bold text-white no-underline"
-              href="https://github.com/taylorbryant/gatsby-starter-tailwind"
-              target="_blank"
-              rel="noopener noreferrer"
-            >
-              GitHub
-            </a>
+          <p className="text-white">
+            <LinkOffSite url="https://github.com/ddd-37">Github</LinkOffSite>
           </p>
         </nav>
       </footer>
