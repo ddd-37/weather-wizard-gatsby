@@ -13,5 +13,9 @@ yarn-error.log
 # deployment-specific configs
 now.json
 
+# dotenv environment variables file
+.env
+.env.development
+
 # Local Netlify folder
 .netlify
