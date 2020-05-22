@@ -3,12 +3,27 @@ const tailwindConfig = require("./tailwind.config.js");
 
 const fullConfig = resolveConfig(tailwindConfig);
 
+const { createProxyMiddleware } = require("http-proxy-middleware");
+
 module.exports = {
   siteMetadata: {
     title: `Weather Wizard`,
     description: `A weather app built with Gatsby and Tailwind`,
     author: `Devon Deason`,
   },
+
+  developMiddleware: (app) => {
+    app.use(
+      "/.netlify/functions/",
+      createProxyMiddleware({
+        target: "http://localhost:9000",
+        pathRewrite: {
+          "/.netlify/functions/": "",
+        },
+      })
+    );
+  },
+
   plugins: [
     `gatsby-plugin-eslint`,
     `gatsby-plugin-react-helmet`,
