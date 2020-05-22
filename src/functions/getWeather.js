@@ -5,12 +5,9 @@ const WEATHERAPI = process.env.GATSBY_WEATHERAPI_KEY;
 
 exports.handler = function (event, context, callback) {
   const lat = event.queryStringParameters.lat;
-  console.log(
-    "exports.handler -> event.queryStringParameters",
-    event.queryStringParameters
-  );
   const lng = event.queryStringParameters.lng;
-  const url = `https://api.openweathermap.org/data/2.5/weather?lat=${lat}&lon=${lng}&units=metric&appid=${WEATHERAPI}`;
+  const unitType = event.queryStringParameters.unit;
+  const url = `https://api.openweathermap.org/data/2.5/onecall?lat=${lat}&lon=${lng}&units=${unitType}&appid=${WEATHERAPI}`;
 
   axios
     .get(url)
