@@ -3,10 +3,11 @@ import axios from "axios";
 
 import Layout from "../components/layout";
 import SEO from "../components/seo";
+import Sidebar from "./../components/IndexPage/Sidebar";
 
 function IndexPage() {
   const [error, setError] = useState();
-  const [location, setLocation] = useState({});
+  const [location, setLocation] = useState("");
   const [weatherData, setWeatherdata] = useState({});
 
   useEffect(() => {
@@ -17,18 +18,36 @@ function IndexPage() {
       }
 
       const success = async (position) => {
-        const result = await axios.get(`./.netlify/functions/getWeather`, {
-          params: {
-            lat: position.coords.latitude,
-            lng: position.coords.longitude,
-          },
-        });
+        const openCageResult = await axios.get(
+          `./.netlify/functions/getLocation`,
+          {
+            params: {
+              lat: position.coords.latitude,
+              lng: position.coords.longitude,
+            },
+          }
+        );
+        console.log("success -> openCageResult", openCageResult);
 
-        setWeatherdata(result.data);
-        setLocation({
-          lat: position.coords.latitude,
-          lng: position.coords.longitude,
-        });
+        const openWeatherResult = await axios.get(
+          `./.netlify/functions/getWeather`,
+          {
+            params: {
+              lat: position.coords.latitude,
+              lng: position.coords.longitude,
+            },
+          }
+        );
+
+        setWeatherdata(openWeatherResult.data);
+
+        const locationText = openCageResult.data.city
+          ? `${openCageResult.data.city}, ${openCageResult.data.state}`
+          : `${openCageResult.data.county}, ${openCageResult.data.state}`;
+
+        console.log("success -> locationText", locationText);
+
+        setLocation(locationText);
       };
 
       const reject = (error) => {
@@ -53,7 +72,9 @@ function IndexPage() {
         error
       ) : (
         <div className="flex flex-grow flex-col md:flex-row">
-          <section className="bg-blue-500 md:w-1/5">Sidebar</section>
+          <section className="bg-blue-500 md:w-1/5">
+            <Sidebar location={location} />
+          </section>
           <section className="bg-yellow-500 flex-1 md:w-4/5">Content</section>
         </div>
       )}
