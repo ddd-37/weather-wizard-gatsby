@@ -62,6 +62,8 @@ function IndexPage() {
           setError(e.message);
           console.log("openWeatherResult: ", e.message);
           return;
+        } finally {
+          setLoading(false);
         }
       };
 
@@ -72,12 +74,12 @@ function IndexPage() {
       };
 
       navigator.geolocation.getCurrentPosition(success, reject);
-      setLoading(false);
     };
 
     getData();
   }, []);
 
+  console.log(loading);
   return (
     <Layout>
       <SEO
@@ -86,7 +88,11 @@ function IndexPage() {
       />
       {error && <div>{error}</div>}
 
-      {loading && <div>Loading...</div>}
+      {loading && (
+        <div>
+          <h2>Loading...</h2>
+        </div>
+      )}
 
       {!loading && !error && location && weatherData && (
         <div className="flex flex-grow flex-col md:flex-row">
