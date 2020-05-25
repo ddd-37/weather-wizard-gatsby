@@ -38,8 +38,6 @@ function IndexPage() {
             : `${openCageResult.data.county}, ${openCageResult.data.state}`;
 
           setLocation(locationText);
-
-          console.log("success -> openCageResult", openCageResult);
         } catch (e) {
           setLoading(false);
           setError(e.message);
@@ -64,8 +62,6 @@ function IndexPage() {
           setError(e.message);
           console.log("openWeatherResult: ", e.message);
           return;
-        } finally {
-          setLoading(false);
         }
       };
 
@@ -76,13 +72,11 @@ function IndexPage() {
       };
 
       navigator.geolocation.getCurrentPosition(success, reject);
+      setLoading(false);
     };
 
     getData();
   }, []);
-
-  console.log("weatherData", weatherData);
-  console.log(location);
 
   return (
     <Layout>
@@ -91,12 +85,10 @@ function IndexPage() {
         title="Home"
       />
       {error && <div>{error}</div>}
-      {loading && (
-        <div>
-          <h2>Loading...</h2>
-        </div>
-      )}
-      {location && weatherData && (
+
+      {loading && <div>Loading...</div>}
+
+      {!loading && !error && location && weatherData && (
         <div className="flex flex-grow flex-col md:flex-row">
           <section className="bg-blue-500 md:w-1/5">
             <Sidebar location={location} data={weatherData.current} />
