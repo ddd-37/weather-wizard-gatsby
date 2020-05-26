@@ -85,10 +85,11 @@ function IndexPage() {
   }, [fahrenheit]);
 
   function handleUnitClick(e) {
+    // Since we're getting brand new weather data, let's clear the old data first (prevents extra re-renders)
+    setWeatherdata(null);
     setFahrenheit(e);
   }
 
-  console.log("weatherData", weatherData);
   return (
     <Layout>
       <SEO
