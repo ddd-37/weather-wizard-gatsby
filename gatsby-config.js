@@ -5,6 +5,8 @@ const fullConfig = resolveConfig(tailwindConfig);
 
 const { createProxyMiddleware } = require("http-proxy-middleware");
 
+const path = require("path");
+
 module.exports = {
   siteMetadata: {
     title: `Weather Wizard`,
@@ -36,7 +38,6 @@ module.exports = {
         background_color: fullConfig.theme.colors.white,
         theme_color: fullConfig.theme.colors.teal["400"],
         display: `minimal-ui`,
-        icon: `src/images/tailwind-icon.png`,
       },
     },
     {
@@ -51,6 +52,16 @@ module.exports = {
         ],
       },
     },
+    "gatsby-image",
+    {
+      resolve: `gatsby-source-filesystem`,
+      options: {
+        name: `images`,
+        path: path.join(__dirname, `src`, `images`),
+      },
+    },
     `gatsby-plugin-offline`,
+    `gatsby-transformer-sharp`,
+    `gatsby-plugin-sharp`,
   ],
 };
