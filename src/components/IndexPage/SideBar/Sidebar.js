@@ -4,6 +4,7 @@ import moment from "moment";
 import AdditionalInfo from "./AdditionalInfo";
 
 import { WeatherData } from "./../../../pages/index";
+import Temp from "../../UI/Temp";
 
 const Sidebar = ({ location, changeUnit }) => {
   const data = useContext(WeatherData).current;
@@ -14,7 +15,9 @@ const Sidebar = ({ location, changeUnit }) => {
       <h3>{moment().format("MMMM D, h:mm")}</h3>
       <div className="flex justify-around">
         <div className="flex flex-1 items-center">
-          <h3 className="text-5xl mx-2">{Math.floor(data.temp)}&deg;</h3>
+          <h3 className="text-5xl mx-2">
+            <Temp temp={data.temp} />
+          </h3>
           <div className="flex flex-col justify-center">
             <button onClick={() => changeUnit(true)}>F</button>
             <button onClick={() => changeUnit(false)}>C</button>
