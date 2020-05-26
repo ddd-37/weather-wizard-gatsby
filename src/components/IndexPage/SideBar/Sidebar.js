@@ -7,7 +7,7 @@ import { WeatherData } from "./../../../pages/index";
 
 const Sidebar = ({ location, changeUnit }) => {
   const data = useContext(WeatherData).current;
-  console.log("Sidebar -> data", data);
+
   return (
     <div>
       <h2 className="text-2xl">{location}</h2>
