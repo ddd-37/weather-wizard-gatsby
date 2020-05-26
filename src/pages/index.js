@@ -4,6 +4,7 @@ import axios from "axios";
 import Layout from "../components/layout";
 import SEO from "../components/seo";
 import Sidebar from "./../components/IndexPage/Sidebar";
+import Content from "../components/IndexPage/Content";
 
 function IndexPage() {
   const [error, setError] = useState(false);
@@ -82,11 +83,9 @@ function IndexPage() {
   }, [fahrenheit]);
 
   function handleUnitClick(e) {
-    console.log("index", e);
     setFahrenheit(e);
   }
 
-  console.log(loading);
   return (
     <Layout>
       <SEO
@@ -111,7 +110,7 @@ function IndexPage() {
             />
           </section>
           <section className="bg-yellow-500 flex-1 md:w-4/5 px-3">
-            Content
+            <Content data={weatherData.daily} />
           </section>
         </div>
       )}

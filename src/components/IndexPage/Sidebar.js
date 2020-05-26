@@ -3,7 +3,6 @@ import { PropTypes } from "prop-types";
 import moment from "moment";
 
 const Sidebar = ({ location, data, changeUnit }) => {
-  console.log("Sidebar -> data", data);
   return (
     <div>
       <h2 className="text-2xl">{location}</h2>
