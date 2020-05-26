@@ -10,6 +10,7 @@ function IndexPage() {
   const [loading, setLoading] = useState(false);
   const [location, setLocation] = useState(null);
   const [weatherData, setWeatherdata] = useState(null);
+  const [fahrenheit, setFahrenheit] = useState(true);
 
   useEffect(() => {
     const getData = async () => {
@@ -53,6 +54,7 @@ function IndexPage() {
               params: {
                 lat: position.coords.latitude,
                 lng: position.coords.longitude,
+                unit: fahrenheit ? "imperial" : "metric",
               },
             }
           );
@@ -77,7 +79,12 @@ function IndexPage() {
     };
 
     getData();
-  }, []);
+  }, [fahrenheit]);
+
+  function handleUnitClick(e) {
+    console.log("index", e);
+    setFahrenheit(e);
+  }
 
   console.log(loading);
   return (
@@ -96,10 +103,16 @@ function IndexPage() {
 
       {!loading && !error && location && weatherData && (
         <div className="flex flex-grow flex-col md:flex-row">
-          <section className="bg-blue-500 md:w-1/5">
-            <Sidebar location={location} data={weatherData.current} />
+          <section className="bg-blue-500 md:w-1/5 px-3">
+            <Sidebar
+              location={location}
+              data={weatherData.current}
+              changeUnit={handleUnitClick}
+            />
           </section>
-          <section className="bg-yellow-500 flex-1 md:w-4/5">Content</section>
+          <section className="bg-yellow-500 flex-1 md:w-4/5 px-3">
+            Content
+          </section>
         </div>
       )}
     </Layout>
