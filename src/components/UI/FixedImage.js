@@ -5,7 +5,7 @@ import { PropTypes } from "prop-types";
 
 // Note: You can change "images" to whatever you'd like.
 
-const Image = ({ filename, alt, maxWidth, title }) => (
+const FixedImage = ({ filename, alt, title }) => (
   <StaticQuery
     query={graphql`
       query {
@@ -15,8 +15,8 @@ const Image = ({ filename, alt, maxWidth, title }) => (
               relativePath
               name
               childImageSharp {
-                fluid(maxWidth: 600) {
-                  ...GatsbyImageSharpFluid
+                fixed(height: 50, width: 50) {
+                  ...GatsbyImageSharpFixed
                 }
               }
             }
@@ -34,22 +34,16 @@ const Image = ({ filename, alt, maxWidth, title }) => (
 
       //const imageSizes = image.node.childImageSharp.sizes; sizes={imageSizes}
       return (
-        <Img
-          alt={alt}
-          title={title}
-          fluid={image.node.childImageSharp.fluid}
-          style={{ maxWidth: maxWidth }}
-        />
+        <Img alt={alt} title={title} fixed={image.node.childImageSharp.fixed} />
       );
     }}
   />
 );
 
-Image.propTypes = {
+FixedImage.propTypes = {
   filename: PropTypes.string.isRequired,
   title: PropTypes.string.isRequired,
   alt: PropTypes.string.isRequired,
-  maxWidth: PropTypes.number,
 };
 
-export default Image;
+export default FixedImage;
