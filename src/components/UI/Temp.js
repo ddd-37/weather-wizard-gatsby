@@ -1,16 +1,16 @@
-import React from 'react';
-import prop-types from 'prop-types';
+import React from "react";
+import { PropTypes } from "prop-types";
 
-const Temp = ({temp}) => {
-    return (
-        <>
-            <span>{Math.floor(temp)}&deg;</span>
-        </>
-    );
+const Temp = ({ temp }) => {
+  return (
+    <>
+      <span>{Math.floor(temp)}&deg;</span>
+    </>
+  );
 };
 
-Temp.propTypes ={
-    temp: PropATypes.number.isRequired
-}
+Temp.propTypes = {
+  temp: PropTypes.number.isRequired,
+};
 
 export default Temp;
