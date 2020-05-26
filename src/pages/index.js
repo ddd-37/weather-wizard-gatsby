@@ -1,10 +1,12 @@
-import React, { useState, useEffect } from "react";
+import React, { useState, useEffect, createContext } from "react";
 import axios from "axios";
 
 import Layout from "../components/layout";
 import SEO from "../components/seo";
-import Sidebar from "./../components/IndexPage/Sidebar";
+import Sidebar from "../components/IndexPage/SideBar/Sidebar";
 import Content from "../components/IndexPage/Content";
+
+const WeatherData = createContext();
 
 function IndexPage() {
   const [error, setError] = useState(false);
@@ -86,6 +88,7 @@ function IndexPage() {
     setFahrenheit(e);
   }
 
+  console.log("weatherData", weatherData);
   return (
     <Layout>
       <SEO
@@ -102,20 +105,22 @@ function IndexPage() {
 
       {!loading && !error && location && weatherData && (
         <div className="flex flex-grow flex-col md:flex-row">
-          <section className="bg-blue-500 md:w-1/5 px-3">
-            <Sidebar
-              location={location}
-              data={weatherData.current}
-              changeUnit={handleUnitClick}
-            />
-          </section>
-          <section className="bg-yellow-500 flex-1 md:w-4/5 px-3">
-            <Content data={weatherData.daily} />
-          </section>
+          <WeatherData.Provider value={{ current: weatherData.current }}>
+            <section className="bg-blue-500 md:w-1/5 px-3">
+              <Sidebar
+                location={location}
+                currentTemp={weatherData.current.temp}
+                changeUnit={handleUnitClick}
+              />
+            </section>
+            <section className="bg-yellow-500 flex-1 md:w-4/5 px-3">
+              <Content data={weatherData.daily} />
+            </section>
+          </WeatherData.Provider>
         </div>
       )}
     </Layout>
   );
 }
 
-export default IndexPage;
+export { IndexPage as default, WeatherData };

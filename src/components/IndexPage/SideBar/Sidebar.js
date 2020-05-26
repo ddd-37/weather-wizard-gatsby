@@ -1,15 +1,20 @@
-import React from "react";
+import React, { useContext } from "react";
 import { PropTypes } from "prop-types";
 import moment from "moment";
+import AdditionalInfo from "./AdditionalInfo";
 
-const Sidebar = ({ location, data, changeUnit }) => {
+import { WeatherData } from "./../../../pages/index";
+
+const Sidebar = ({ location, changeUnit }) => {
+  const data = useContext(WeatherData).current;
+  console.log("Sidebar -> data", data);
   return (
     <div>
       <h2 className="text-2xl">{location}</h2>
       <h3>{moment().format("MMMM D, h:mm")}</h3>
       <div className="flex justify-around">
         <div className="flex flex-1 items-center">
-          <h3 className="text-5xl mx-2 ">{Math.floor(data.temp)}&deg;</h3>
+          <h3 className="text-5xl mx-2">{Math.floor(data.temp)}&deg;</h3>
           <div className="flex flex-col justify-center">
             <button onClick={() => changeUnit(true)}>F</button>
             <button onClick={() => changeUnit(false)}>C</button>
@@ -21,13 +26,13 @@ const Sidebar = ({ location, data, changeUnit }) => {
           />
         </div>
       </div>
+      <AdditionalInfo />
     </div>
   );
 };
 
 Sidebar.propTypes = {
   location: PropTypes.string.isRequired,
-  data: PropTypes.object.isRequired,
   changeUnit: PropTypes.func.isRequired,
 };
 
