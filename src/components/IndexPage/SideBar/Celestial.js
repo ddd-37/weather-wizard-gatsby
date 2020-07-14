@@ -10,7 +10,7 @@ const Celestial = ({ text, time, iconFile }) => {
         <strong>{text}</strong>
       </h3>
       <div className="flex items-start">
-        <div className="flex-auto flex-shrink-0">
+        <div>
           {" "}
           <FixedImage
             filename={iconFile}

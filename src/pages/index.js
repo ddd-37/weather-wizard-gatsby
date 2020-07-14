@@ -107,7 +107,7 @@ function IndexPage() {
       {!loading && !error && location && weatherData && (
         <div className="flex flex-grow flex-col md:flex-row">
           <WeatherData.Provider value={{ current: weatherData.current }}>
-            <section className="bg-blue-500 md:w-1/5 px-3">
+            <section className="bg-blue-500 md:w-1/5 px-3 ">
               <Sidebar
                 location={location}
                 currentTemp={weatherData.current.temp}

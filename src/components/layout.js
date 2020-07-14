@@ -12,7 +12,7 @@ function Layout({ children }) {
       <main className="flex flex-grow">{children}</main>
 
       <footer className="bg-blue-700">
-        <nav className="flex justify-between max-w-4xl mx-auto text-sm md:p-8">
+        <nav className="flex justify-between mx-auto text-sm md:p-8">
           <p className="text-white">
             Created by{` `}
             <LinkOffSite url="https://devon-deason.netlify.app/">
